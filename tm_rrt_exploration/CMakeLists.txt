@@ -1,47 +1,48 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(tmrrt_exploration)
 
-## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS
-  geometry_msgs
-  nav_msgs
-  roscpp
-  rospy
-  std_msgs
-  tf
-  visualization_msgs
-  message_generation
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# necessary to get past eigen resizing (?)
+set(CMAKE_BUILD_TYPE RelWithDebInfo) #None, Debug, Release, RelWithDebInfo, MinSizeRel
+
+find_package(ament_cmake REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rclpy REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(visualization_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/PointArray.msg"
+  "msg/invalidArray.msg"
+  DEPENDENCIES sensor_msgs geometry_msgs
 )
 
+ament_export_dependencies(rosidl_default_runtime)
 
-add_message_files(
-  FILES
-  PointArray.msg
-  invalidArray.msg
-)
-
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-  geometry_msgs
-)
+ament_package()
 
 
-catkin_package( 
+# catkin_package( 
 
-CATKIN_DEPENDS message_runtime
-)
+# CATKIN_DEPENDS message_runtime
+# )
 
 
 
 
 
-include_directories(include ${catkin_INCLUDE_DIRS})
+# include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(global_rrt_detector src/global_rrt_detector.cpp src/functions.cpp src/mtrand.cpp)
-target_link_libraries(global_rrt_detector ${catkin_LIBRARIES})
+# add_executable(global_rrt_detector src/global_rrt_detector.cpp src/functions.cpp src/mtrand.cpp)
+# target_link_libraries(global_rrt_detector ${catkin_LIBRARIES})
 
-add_executable(local_rrt_detector src/local_rrt_detector.cpp src/functions.cpp src/mtrand.cpp)
-target_link_libraries(local_rrt_detector ${catkin_LIBRARIES})
+# add_executable(local_rrt_detector src/local_rrt_detector.cpp src/functions.cpp src/mtrand.cpp)
+# target_link_libraries(local_rrt_detector ${catkin_LIBRARIES})
