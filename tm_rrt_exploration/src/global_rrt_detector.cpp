@@ -1,30 +1,28 @@
-#include "ros/ros.h"
-#include "std_msgs/String.h"
 #include <sstream>
 #include <iostream>
 #include <string>
 #include <vector>
-#include "stdint.h"
+
+// #include "ros/ros.h"
+// #include "std_msgs/String.h"
+// #include "stdint.h"
+// #include "nav_msgs/OccupancyGrid.h"
+// #include "geometry_msgs/PointStamped.h"
+// #include "std_msgs/Header.h"
+// #include "std_msgs/Bool.h"
+// #include "nav_msgs/MapMetaData.h"
+// #include "geometry_msgs/Point.h"
+// #include "visualization_msgs/Marker.h"
+// #include <tf/transform_listener.h>
+
 #include "functions.h"
 #include "mtrand.h"
 
-
-#include "nav_msgs/OccupancyGrid.h"
-#include "geometry_msgs/PointStamped.h"
-#include "std_msgs/Header.h"
-#include "std_msgs/Bool.h"
-#include "nav_msgs/MapMetaData.h"
-#include "geometry_msgs/Point.h"
-#include "visualization_msgs/Marker.h"
-#include <tf/transform_listener.h>
-
-
-
 // global variables
-nav_msgs::OccupancyGrid mapData;
-geometry_msgs::PointStamped clickedpoint;
-geometry_msgs::PointStamped exploration_goal;
-visualization_msgs::Marker points,line;
+nav_msgs::msg::OccupancyGrid mapData;
+geometry_msgs::msg::PointStamped clickedpoint;
+geometry_msgs::msg::PointStamped exploration_goal;
+visualization_msgs::msg::Marker points,line;
 float xdim,ydim,resolution,Xstartx,Xstarty,init_map_x,init_map_y;
 bool startStopSignal;
 bool resetSignal;
@@ -33,33 +31,32 @@ rdm r; // for genrating random numbers
 
 
 //Subscribers callback functions---------------------------------------
-void mapCallBack(const nav_msgs::OccupancyGrid::ConstPtr& msg)
+void mapCallBack(const nav_msgs::msg::OccupancyGrid::ConstPtr& msg)
 {
 mapData=*msg;
 }
  
-void rvizCallBack(const geometry_msgs::PointStamped::ConstPtr& msg)
+void rvizCallBack(const geometry_msgs::msg::PointStamped::ConstPtr& msg)
 { 
-geometry_msgs::Point p;  
+geometry_msgs::msg::Point p;  
 p.x=msg->point.x;
 p.y=msg->point.y;
 p.z=msg->point.z;
 points.points.push_back(p);
 }
  
-void startStopSignalCallback(const std_msgs::Bool::ConstPtr& msg)
+void startStopSignalCallback(const std_msgs::msg::Bool::ConstPtr& msg)
 { 
 	startStopSignal = msg->data;
 }
-void resetSignalcallback(const std_msgs::Bool::ConstPtr& msg)
+void resetSignalcallback(const std_msgs::msg::Bool::ConstPtr& msg)
 { 
 	resetSignal = msg->data;
 }
 
 // --------------------------------------------------------------------------------
-int main(int argc, char **argv)
-{
-
+int main(int argc, char **argv) {
+/*
   unsigned long init[4] = {0x123, 0x234, 0x345, 0x456}, length = 7;
   MTRand_int32 irand(init, length); // 32-bit int generator
 // this is an example of initializing by an array
@@ -101,9 +98,9 @@ while (mapData.header.seq<1 or mapData.data.size()<1)  {  ros::spinOnce();  ros:
 	// int i=0;
 	float xr,yr;
 	std::vector< std::vector<float>  > V; 
-	geometry_msgs::Point p;  
-	ros::Publisher targetspub = nh.advertise<geometry_msgs::PointStamped>("/detected_points", 10);
-	ros::Publisher pub = nh.advertise<visualization_msgs::Marker>(ns+"_shapes", 10);
+	geometry_msgs::msg::Point p;  
+	ros::Publisher targetspub = nh.advertise<geometry_msgs::msg::PointStamped>("/detected_points", 10);
+	ros::Publisher pub = nh.advertise<visualization_msgs::msg::Marker>(ns+"_shapes", 10);
 
 while (ros::ok())
 {	
@@ -175,7 +172,7 @@ while (ros::ok())
 				Xstartx=(points.points[0].x+points.points[2].x)*.5;
 				Xstarty=(points.points[0].y+points.points[2].y)*.5;
 
-				geometry_msgs::Point trans;
+				geometry_msgs::msg::Point trans;
 				trans=points.points[4];
 				std::vector<float> xnew; 
 				xnew.push_back( trans.x);xnew.push_back( trans.y);  
@@ -238,5 +235,6 @@ while (ros::ok())
 		rate.sleep();
 	}
 }
+*/
 return 0;
 }

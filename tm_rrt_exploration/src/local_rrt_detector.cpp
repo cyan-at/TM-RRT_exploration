@@ -21,10 +21,10 @@
 
 
 // global variables
-nav_msgs::OccupancyGrid mapData;
-geometry_msgs::PointStamped clickedpoint;
-geometry_msgs::PointStamped exploration_goal;
-visualization_msgs::Marker points,line;
+nav_msgs::msg::OccupancyGrid mapData;
+geometry_msgs::msg::PointStamped clickedpoint;
+geometry_msgs::msg::PointStamped exploration_goal;
+visualization_msgs::msg::Marker points,line;
 float xdim,ydim,resolution,Xstartx,Xstarty,init_map_x,init_map_y;
 bool startStopSignal2;
 bool resetSignal2;
@@ -35,25 +35,25 @@ rdm r; // for genrating random numbers
 // --------------------------------------------------------------------------------
 
 //Subscribers callback functions---------------------------------------
-void mapCallBack(const nav_msgs::OccupancyGrid::ConstPtr& msg)
+void mapCallBack(const nav_msgs::msg::OccupancyGrid::ConstPtr& msg)
 {
 mapData=*msg;
 }
  
-void rvizCallBack(const geometry_msgs::PointStamped::ConstPtr& msg)
+void rvizCallBack(const geometry_msgs::msg::PointStamped::ConstPtr& msg)
 { 
-geometry_msgs::Point p;  
+geometry_msgs::msg::Point p;  
 p.x=msg->point.x;
 p.y=msg->point.y;
 p.z=msg->point.z;
 points.points.push_back(p);
 }
 
-void startStopSignalCallback(const std_msgs::Bool::ConstPtr& msg)
+void startStopSignalCallback(const std_msgs::msg::Bool::ConstPtr& msg)
 { 
 	startStopSignal2 = msg->data;
 }
-void resetSignalcallback(const std_msgs::Bool::ConstPtr& msg)
+void resetSignalcallback(const std_msgs::msg::Bool::ConstPtr& msg)
 { 
 	resetSignal2 = msg->data;
 }
@@ -100,9 +100,9 @@ int main(int argc, char **argv)
 	ROS_INFO("Run Local RRTExploration");
 	bool FirstRun = true;
 	std::vector< std::vector<float>  > V; 
-	geometry_msgs::Point p;  
-	ros::Publisher pub = nh.advertise<visualization_msgs::Marker>(ns+"_shapes", 10);
-	ros::Publisher targetspub = nh.advertise<geometry_msgs::PointStamped>("/detected_points", 10);
+	geometry_msgs::msg::Point p;  
+	ros::Publisher pub = nh.advertise<visualization_msgs::msg::Marker>(ns+"_shapes", 10);
+	ros::Publisher targetspub = nh.advertise<geometry_msgs::msg::PointStamped>("/detected_points", 10);
 	std::vector<float> frontiers;
 	// int i=0;
 	float xr,yr;
@@ -177,7 +177,7 @@ int main(int argc, char **argv)
 						Xstartx=(points.points[0].x+points.points[2].x)*.5;
 						Xstarty=(points.points[0].y+points.points[2].y)*.5;
 
-						geometry_msgs::Point trans;
+						geometry_msgs::msg::Point trans;
 						trans=points.points[4];
 						std::vector<float> xnew; 
 						xnew.push_back( trans.x);xnew.push_back( trans.y);  

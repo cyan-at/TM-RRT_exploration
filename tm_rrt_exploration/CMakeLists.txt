@@ -21,7 +21,7 @@ find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/PointArray.msg"
-  "msg/invalidArray.msg"
+  "msg/InvalidArray.msg"
   DEPENDENCIES sensor_msgs geometry_msgs
 )
 
@@ -29,17 +29,29 @@ ament_export_dependencies(rosidl_default_runtime)
 
 ament_package()
 
-
-# catkin_package( 
-
-# CATKIN_DEPENDS message_runtime
-# )
-
-
-
-
-
 # include_directories(include ${catkin_INCLUDE_DIRS})
+
+set(TARGET global_rrt_detector)
+set(SOURCES
+  src/global_rrt_detector.cpp
+  src/functions.cpp
+  src/mtrand.cpp
+)
+add_executable(${TARGET} ${SOURCES})
+target_include_directories(${TARGET} PUBLIC include)
+target_link_libraries(
+  ${TARGET}
+  "${cpp_typesupport_target}"
+)
+ament_target_dependencies(${TARGET}
+  rclcpp
+  tf2
+  tf2_ros
+  geometry_msgs
+  sensor_msgs
+  nav_msgs
+  visualization_msgs
+)
 
 # add_executable(global_rrt_detector src/global_rrt_detector.cpp src/functions.cpp src/mtrand.cpp)
 # target_link_libraries(global_rrt_detector ${catkin_LIBRARIES})
