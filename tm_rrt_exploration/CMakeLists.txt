@@ -53,8 +53,26 @@ ament_target_dependencies(${TARGET}
   visualization_msgs
 )
 
-# add_executable(global_rrt_detector src/global_rrt_detector.cpp src/functions.cpp src/mtrand.cpp)
-# target_link_libraries(global_rrt_detector ${catkin_LIBRARIES})
-
+set(TARGET local_rrt_detector)
+set(SOURCES
+  src/local_rrt_detector.cpp
+  src/functions.cpp
+  src/mtrand.cpp
+)
+add_executable(${TARGET} ${SOURCES})
+target_include_directories(${TARGET} PUBLIC include)
+target_link_libraries(
+  ${TARGET}
+  "${cpp_typesupport_target}"
+)
+ament_target_dependencies(${TARGET}
+  rclcpp
+  tf2
+  tf2_ros
+  geometry_msgs
+  sensor_msgs
+  nav_msgs
+  visualization_msgs
+)
 # add_executable(local_rrt_detector src/local_rrt_detector.cpp src/functions.cpp src/mtrand.cpp)
 # target_link_libraries(local_rrt_detector ${catkin_LIBRARIES})

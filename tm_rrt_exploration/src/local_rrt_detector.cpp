@@ -1,24 +1,23 @@
-#include "ros/ros.h"
-#include "std_msgs/String.h"
 #include <sstream>
 #include <iostream>
 #include <string>
 #include <vector>
+
 #include "stdint.h"
 #include "functions.h"
 #include "mtrand.h"
 
-
+#include <std_msgs/msg/bool.hpp>
+#include <std_msgs/msg/header.hpp>
+/*
+#include "std_msgs/String.h"
 #include "nav_msgs/OccupancyGrid.h"
 #include "geometry_msgs/PointStamped.h"
-#include "std_msgs/Header.h"
-#include "std_msgs/Bool.h"
 #include "nav_msgs/MapMetaData.h"
 #include "geometry_msgs/Point.h"
 #include "visualization_msgs/Marker.h"
 #include <tf/transform_listener.h>
-
-
+#include "ros/ros.h"
 
 // global variables
 nav_msgs::msg::OccupancyGrid mapData;
@@ -57,12 +56,12 @@ void resetSignalcallback(const std_msgs::msg::Bool::ConstPtr& msg)
 { 
 	resetSignal2 = msg->data;
 }
+*/
 
 // --------------------------------------------------------------------------------
 
-int main(int argc, char **argv)
-{
-
+int main(int argc, char **argv) {
+/*
   unsigned long init[4] = {0x123, 0x234, 0x345, 0x456}, length = 7;
   MTRand_int32 irand(init, length); // 32-bit int generator
 // this is an example of initializing by an array
@@ -254,5 +253,6 @@ int main(int argc, char **argv)
 			rate.sleep();
 		}
 	}
+*/
 return 0;
 }

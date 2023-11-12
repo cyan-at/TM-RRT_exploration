@@ -3,17 +3,18 @@
 #include <string>
 #include <vector>
 
+#include "stdint.h"
+
 // #include "ros/ros.h"
-// #include "std_msgs/String.h"
-// #include "stdint.h"
 // #include "nav_msgs/OccupancyGrid.h"
 // #include "geometry_msgs/PointStamped.h"
-// #include "std_msgs/Header.h"
-// #include "std_msgs/Bool.h"
 // #include "nav_msgs/MapMetaData.h"
 // #include "geometry_msgs/Point.h"
 // #include "visualization_msgs/Marker.h"
 // #include <tf/transform_listener.h>
+#include <std_msgs/msg/bool.hpp>
+#include <std_msgs/msg/header.hpp>
+#include <std_msgs/msg/string.hpp>
 
 #include "functions.h"
 #include "mtrand.h"
